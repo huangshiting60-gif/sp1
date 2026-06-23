@@ -1,0 +1,729 @@
+/* --- 全域樣式與變數 --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  /* Soft, Modern & Professional Theme for Education/Tech */
+  --bg-color: #fdfcfa;         /* A very light, warm off-white */
+  --text-color: #4a4a4a;       /* A dark, soft gray */
+  --primary-color: #6D9886;   /* A muted, sophisticated sage/teal green */
+  --secondary-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.06);
+  --tag-bg: #f2e9e4;           /* A very light, dusty pink/beige for contrast */
+  --tag-text: #5c5c5c;         /* Slightly lighter text for tags */
+  --border-color: #e0e0e0;     /* A light gray border */
+  --accent-color: #405a52;     /* A darker version of the primary for hovers */
+}
+
+html {
+  /* scroll-behavior is handled by JavaScript for better cross-browser support */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden; /* 防止水平滾動 */
+}
+
+/* --- p5.js Canvas 背景 --- */
+#p5-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 將畫布置於所有內容之後 */
+  /* 新增：靜態漸層背景 */
+}
+
+/* --- 導覽列 --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.hamburger {
+  display: none; /* 在桌面版預設隱藏 */
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--primary-color);
+  z-index: 11; /* 確保在導覽列之上 */
+}
+
+/* --- Dropdown Menu --- */
+.nav-links li.dropdown {
+  position: relative;
+  /* 增加底部內距來擴大懸停區域，並用負外距來維持原有的版面高度 */
+  padding-bottom: 15px;
+  margin-bottom: -15px;
+}
+
+.nav-links li.dropdown > a {
+  cursor: pointer;
+}
+
+.nav-links li.dropdown > a::after {
+  content: ' ▾';
+  font-size: 0.8em;
+}
+
+.dropdown-content {
+  /* 改用 visibility 和 opacity 來控制顯示，以實現平滑過渡效果 */
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.98);
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  list-style: none;
+  padding: 10px 0;
+  margin-top: 15px; /* 保持視覺上的間距 */
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  /* 加入過渡動畫 */
+  transition: opacity 0.2s ease-in-out, visibility 0s linear 0.2s;
+}
+
+.nav-links li.dropdown:hover .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.dropdown-content a {
+  padding: 12px 20px;
+  display: block;
+  text-align: left;
+}
+
+/* --- 主要內容 --- */
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 5%;
+}
+
+/* --- 主視覺區 --- */
+.hero-section {
+  text-align: center;
+  padding: 4rem 0; /* 減少上下間距 */
+  min-height: auto; /* 移除最小高度限制，讓內容決定區塊高度 */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* 調整間距 */
+  align-items: center;
+  position: relative; /* For pseudo-element positioning */
+  overflow: hidden; /* Contain the gradient glow */
+}
+
+.hero-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 新增：為首頁標題文字加上錯落的淡入動畫 */
+.hero-text > * {
+  animation: text-fade-in 0.8s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.hero-text h1 { animation-delay: 0.3s; }
+.hero-text .subtitle { animation-delay: 0.5s; }
+.hero-text .hero-divider { animation-delay: 0.7s; }
+.hero-text .bio { animation-delay: 0.8s; }
+.hero-text .hero-contact-icons { animation-delay: 1.0s; }
+
+.profile-image-container {
+  margin: 0 auto;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(52, 86, 139, 0.1);
+}
+
+.profile-image {
+  width: 180px; /* 設定照片寬度 */
+  height: 180px; /* 設定照片高度 */
+  border-radius: 50%; /* 關鍵：將邊框半徑設為50%即可變成圓形 */
+  object-fit: cover; /* 確保圖片在不變形的情況下填滿容器，建議使用方形圖片 */
+  border: 4px solid var(--secondary-color); /* 可選：增加一個與背景搭配的邊框 */
+  box-shadow: 0 8px 24px var(--shadow-color); /* 可選：增加細緻的陰影效果以提升立體感 */
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin: 0.5rem 0;
+  /* Gradient text effect */
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.hero-section .subtitle {
+  font-size: 1.2rem;
+  color: #6c757d; /* Softer gray text */
+  margin: 0.25rem 0 1.5rem 0;
+}
+
+.hero-section .bio {
+  font-size: 1rem;
+  color: #495057; /* 調整為較深的灰色以提升可讀性 */
+  max-width: 600px;
+  margin: 0 0 2rem 0;
+  line-height: 1.7;
+  font-style: italic; /* 改為斜體以增加風格 */
+  opacity: 0.9;
+}
+
+.hero-divider {
+  width: 80px;
+  border: none;
+  border-top: 1px solid var(--primary-color);
+  opacity: 0.3;
+  margin: 0.5rem auto 1.5rem auto;
+}
+
+.hero-contact-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.hero-contact-icons a {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-contact-icons a:hover {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center; /* 水平置中 */
+  gap: 1.2rem;
+}
+
+.button {
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 使用更流暢的轉場動畫 */
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* 新增：為所有按鈕加上通用的懸停「漂浮」效果 */
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(52, 86, 139, 0.12);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: 2px solid var(--primary-color);
+}
+
+/* 優化主要按鈕的懸停效果，使其更有吸引力 */
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.button.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+.button.btn-secondary:hover {
+  background-color: var(--tag-bg);
+}
+/* --- About Page Specifics --- */
+.page-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.page-title h2 {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+.about-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+/* --- 時間軸樣式 --- */
+.timeline {
+  list-style: none;
+  padding: 1rem 0 1rem 1.5rem;
+  margin: 0;
+  position: relative;
+  text-align: left;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--border-color);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.1rem;
+  top: 0.25rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 3px solid var(--bg-color);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0.25rem 0 0 0;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(109, 152, 134, 0.08); /* 使用主色調的陰影 */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  scroll-margin-top: 100px; /* 為導覽列預留空間 */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* Animation */
+  animation: card-fade-in 0.8s ease-out forwards; /* 減慢卡片淡入動畫的速度 */
+  opacity: 0;
+}
+
+.card .timeline-item {
+  margin-bottom: 1.5rem; /* Add spacing between items */
+  padding-left: 2.5rem; /* Space for the line and dot */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+.card .timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.card .timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -0.5rem; /* Adjust position to align with the line */
+  top: 0.5rem; /* Adjust vertical position */
+  width: 16px; /* Slightly larger dot */
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 3px solid var(--bg-color); /* Use background color for contrast */
+  z-index: 1; /* Ensure it's above the line */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Animation for the dot */
+}
+
+.card .timeline-item:hover::before {
+  background-color: var(--accent-color); /* Change color on hover */
+  transform: scale(1.2); /* Make it slightly larger on hover */
+}
+
+.card .timeline-date {
+  font-weight: 700; /* Bolder date */
+  color: var(--accent-color); /* Use accent color for date */
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.card .timeline-content {
+  background: rgba(255, 255, 255, 0.6); /* Slightly transparent background for content */
+  backdrop-filter: blur(5px); /* Glassmorphism effect */
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card .timeline-item:hover .timeline-content {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Stronger shadow on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.card .timeline-content h3 {
+  font-size: 1.2rem; /* Slightly larger heading */
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color); /* Use primary color for headings */
+}
+
+.card .timeline-content p {
+  font-size: 0.9rem;
+  color: var(--text-color); /* Use general text color */
+  margin: 0.25rem 0 0 0;
+  line-height: 1.5;
+}
+
+.card .timeline-content strong {
+  color: var(--accent-color); /* Highlight strong text */
+}
+
+.card:hover {
+  transform: translateY(-10px); /* 讓卡片上浮更明顯 */
+  box-shadow: 0 18px 50px rgba(109, 152, 134, 0.15), 0 0 25px rgba(109, 152, 134, 0.1); /* 增強陰影與光暈效果 */
+}
+
+/* 當透過導覽列點擊時，為卡片增加的短暫高亮效果 */
+.card.is-highlighted {
+  transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 0 0 0 3px var(--primary-color), 0 12px 40px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Staggered animation delay for cards */
+.cards-container .card:nth-child(1) { animation-delay: 0.2s; }
+.cards-container .card:nth-child(2) { animation-delay: 0.4s; } /* 調整延遲以配合較慢的動畫 */
+.cards-container .card:nth-child(3) { animation-delay: 0.4s; }
+.about-cards-container .card:nth-child(1) { animation-delay: 0.1s; }
+.about-cards-container .card:nth-child(2) { animation-delay: 0.2s; }
+.about-cards-container .card:nth-child(3) { animation-delay: 0.3s; }
+.about-cards-container .card:nth-child(4) { animation-delay: 0.15s; }
+.about-cards-container .card:nth-child(5) { animation-delay: 0.25s; }
+.about-cards-container .card:nth-child(6) { animation-delay: 0.35s; }
+.about-cards-container .card:nth-child(7) { animation-delay: 0.2s; }
+.about-cards-container .card:nth-child(8) { animation-delay: 0.3s; }
+.about-cards-container .card:nth-child(9) { animation-delay: 0.4s; }
+.about-cards-container .card:nth-child(10) { animation-delay: 0.25s; }
+.about-cards-container .card:nth-child(11) { animation-delay: 0.35s; }
+
+/* 新增：文字淡入動畫的 @keyframes */
+@keyframes text-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card .icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+}
+
+.card:hover .icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+.card .icon { transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+/* Skills Card */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease; /* 讓所有屬性都有流暢的動畫效果 */
+  cursor: pointer;
+}
+
+.tag:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+  transform: translateY(-2px); /* 新增「漂浮」效果 */
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.publication-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  text-align: center;
+}
+
+.publication-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.publication-item:hover {
+  transform: translateY(-4px);
+}
+
+.publication-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.publication-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.publication-info a { color: var(--text-color); font-size: 1.2rem; transition: color 0.3s ease; display: inline-flex; align-items: center; }
+.publication-info a:hover { color: var(--primary-color); }
+
+/* Contact Card */
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link-btn { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; border: 1px solid var(--border-color); border-radius: 10px; text-decoration: none; color: var(--text-color); transition: background-color 0.3s ease, color 0.3s ease; }
+.contact-link-btn:hover { background-color: var(--tag-bg); color: var(--primary-color); }
+.contact-link-btn i { font-size: 1.5rem; }
+
+/* --- 頁尾 (Footer) --- */
+.site-footer {
+  text-align: center;
+  padding: 2rem 5%;
+  margin-top: 4rem;
+  background-color: var(--tag-bg);
+  border-top: 1px solid var(--border-color);
+  color: var(--tag-text);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0.5rem 0;
+}
+
+.site-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* --- Publications Page --- */
+.publications-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+  justify-items: center;
+}
+
+.publication-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(109, 152, 134, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.publication-circle:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 18px 50px rgba(109, 152, 134, 0.18), 0 0 25px rgba(109, 152, 134, 0.12);
+}
+
+.publication-circle i {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.publication-circle h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.publication-circle p {
+  font-size: 0.85rem;
+  color: var(--tag-text);
+  margin: 0;
+}
+
+/* --- RWD 響應式設計 --- */
+@media (max-width: 991px) {
+  .nav-links {
+    position: absolute;
+    top: 100%; /* 從導覽列下方開始 */
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    transform: translateY(-150%); /* 預設將選單藏在畫面上方 */
+    transition: transform 0.3s ease-in-out;
+    z-index: 9;
+  }
+  .nav-links.active {
+    transform: translateY(0); /* 顯示選單 */
+  }
+  .hamburger {
+    display: block; /* 在手機版顯示漢堡圖示 */
+  }
+  .hero-section h1 { font-size: 2.8rem; }
+  .cards-container {
+    grid-template-columns: 1fr;
+    padding-top: 2rem;
+  }
+
+  /* Mobile Dropdown */
+  .nav-links li.dropdown:hover .dropdown-content {
+    /* 在手機版上禁用懸停效果 */
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .nav-links li.dropdown .dropdown-content.active {
+    visibility: visible; /* 透過點擊觸發 .active class 來顯示 */
+    opacity: 1;
+  }
+
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding-left: 1rem; /* Indent sub-menu */
+    background-color: transparent;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-section {
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .hero-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero-divider {
+    margin: 0.5rem 0 1.5rem 0;
+  }
+  .hero-buttons {
+    justify-content: flex-start;
+  }
+}

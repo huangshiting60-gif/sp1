@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>詳細資料 - 郭盈芝 助理教授</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- 引入 Boxicons 圖示庫 -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <!-- p5.js 動態背景的容器 -->
+    <div id="p5-canvas-container"></div>
+
+    <!-- 頂部導覽列 -->
+    <nav class="navbar">
+      <a href="index.html" class="logo">郭盈芝 YING CHIH KUO</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="about.html">詳細資料</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0);">專業與研究</a>
+          <ul class="dropdown-content">
+            <li><a href="projects.html">專業項目</a></li>
+            <li><a href="publications.html">學術研究</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- 漢堡選單圖示 (僅在手機版顯示) -->
+      <div class="hamburger">
+        <i class='bx bx-menu'></i>
+      </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="content">
+      <div class="page-title">
+        <h2>詳細資料</h2>
+      </div>
+      <div class="about-cards-container">
+        <!-- 學歷卡片 -->
+        <section id="education" class="card">
+          <div class="card-header">
+            <i class='bx bxs-graduation icon'></i>
+            <h2>學歷</h2>
+          </div>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-date">2017年8月</div>
+              <div class="timeline-content">
+                <h3>博士 | 淡江大學</h3>
+                <p>教育領導與科技管理 博士</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2005年8月</div>
+              <div class="timeline-content">
+                <h3>碩士 | 淡江大學</h3>
+                <p>教育科技學系 碩士</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 經歷卡片 -->
+        <section id="experience" class="card">
+          <div class="card-header">
+            <i class='bx bxs-briefcase-alt-2 icon'></i>
+            <h2>經歷</h2>
+          </div>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-date">2025年8月~</div>
+              <div class="timeline-content">
+                <h3>助理教授 | 淡江大學</h3>
+                <p>教育科技學系</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2022年8月~2025年7月</div>
+              <div class="timeline-content">
+                <h3>副研發長 | 醒吾科大</h3>
+                <p>研發處</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2016年8月~2025年7月</div>
+              <div class="timeline-content">
+                <h3>助理教授 & 主任 | 醒吾科大</h3>
+                <p>資訊科技應用系 & 研發處 計畫管考中心</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2007年7月~2016年7月</div>
+              <div class="timeline-content">
+                <h3>助理 | 醒吾科大</h3>
+                <p>協作平台修正資訊管理系</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 證照卡片 -->
+        <section id="licenses" class="card">
+          <div class="card-header">
+            <i class='bx bxs-certification icon'></i>
+            <h2>證照</h2>
+          </div>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-date">2011年5月</div>
+              <div class="timeline-content">
+                <p>Microsoft Office Specialist for Office Excel 2010</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2011年5月</div>
+              <div class="timeline-content">
+                <p>Microsoft Office Specialist for Office Word 2010</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2009年11月</div>
+              <div class="timeline-content">
+                <p>Microsoft Office Specialist for Office Excel 2003</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2009年5月</div>
+              <div class="timeline-content">
+                <p>EC-Council Security5-Version1.0</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-date">2009年1月</div>
+              <div class="timeline-content">
+                <p>Microanalysis CRM Merchandise Analyst</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="site-footer">
+      <p>&copy; 2026 郭盈芝 (YING CHIH KUO). All Rights Reserved.</p>
+      <p><a href="https://www.tku.edu.tw/" target="_blank" rel="noopener noreferrer">淡江大學</a> | <a href="http://www.et.tku.edu.tw/" target="_blank" rel="noopener noreferrer">教育科技學系</a></p>
+    </footer>
+
+    <script src="sketch.js"></script>
+  </body>
+</html>
