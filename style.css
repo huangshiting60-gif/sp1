@@ -690,23 +690,32 @@ body {
 
   /* Mobile Dropdown */
   .nav-links li.dropdown:hover .dropdown-content {
-    /* 在手機版上禁用懸停效果 */
+    /* 在手機版上禁用懸停效果，確保點擊才有效 */
     visibility: hidden;
     opacity: 0;
+    max-height: 0; /* 確保懸停時不會意外展開 */
   }
 
   .nav-links li.dropdown .dropdown-content.active {
-    visibility: visible; /* 透過點擊觸發 .active class 來顯示 */
-    opacity: 1;
+    /* 透過 .active class 展開子選單 */
+    max-height: 20em; /* 設定一個足夠大的高度以容納所有子項目 */
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .dropdown-content {
     position: static;
     box-shadow: none;
     border: none;
-    padding-left: 1rem; /* Indent sub-menu */
+    padding: 0 0 0 1rem; /* 重設 padding，隱藏時上下為 0 */
     background-color: transparent;
     margin-top: 0;
+    /* 覆蓋桌面版樣式，改用 max-height 實現手風琴效果 */
+    visibility: visible;
+    opacity: 1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
   }
 }
 
